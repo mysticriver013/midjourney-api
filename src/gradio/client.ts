@@ -879,6 +879,8 @@ function get_type(
       return "boolean";
     case "number":
       return "number";
+    default:
+      return "string";
   }
 
   if (
@@ -1037,7 +1039,7 @@ export async function walk_and_store_blobs(
     return [
       {
         path: path,
-        blob: is_image ? false : new NodeBlob([param]),
+        blob: is_image ? false : new Blob([param]) as Blob,
         data: is_image ? `${param.toString("base64")}` : false,
         type,
       },

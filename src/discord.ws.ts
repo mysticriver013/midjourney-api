@@ -6,7 +6,6 @@ import {
   MJEmit,
   MJInfo,
   MJSettings,
-  MJOptions,
   OnModal,
   MJShorten,
   MJDescribe,
@@ -469,7 +468,7 @@ export class WsMessage {
   private getEventByContent(content: string) {
     const prompt = content2prompt(content);
     //fist del message
-    for (const [key, value] of this.waitMjEvents.entries()) {
+    for (const [, value] of this.waitMjEvents.entries()) {
       if (
         value.del === true &&
         prompt === content2prompt(value.prompt as string)
@@ -478,26 +477,29 @@ export class WsMessage {
       }
     }
 
-    for (const [key, value] of this.waitMjEvents.entries()) {
+    for (const [, value] of this.waitMjEvents.entries()) {
       if (prompt === content2prompt(value.prompt as string)) {
         return value;
       }
     }
+    return undefined;
   }
 
   private getEventById(id: string) {
-    for (const [key, value] of this.waitMjEvents.entries()) {
+    for (const [, value] of this.waitMjEvents.entries()) {
       if (value.id === id) {
         return value;
       }
     }
+    return undefined;
   }
   private getEventByNonce(nonce: string) {
-    for (const [key, value] of this.waitMjEvents.entries()) {
+    for (const [, value] of this.waitMjEvents.entries()) {
       if (value.nonce === nonce) {
         return value;
       }
     }
+    return undefined;
   }
   private updateMjEventIdByNonce(id: string, nonce: string) {
     if (nonce === "" || id === "") return;

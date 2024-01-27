@@ -25,6 +25,7 @@ function getCommandName(name: string): CommandName | undefined {
       return command;
     }
   }
+  return undefined;
 }
 
 export class Command {
