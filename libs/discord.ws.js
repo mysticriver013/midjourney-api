@@ -421,31 +421,34 @@ class WsMessage {
     getEventByContent(content) {
         const prompt = (0, utils_1.content2prompt)(content);
         //fist del message
-        for (const [key, value] of this.waitMjEvents.entries()) {
+        for (const [, value] of this.waitMjEvents.entries()) {
             if (value.del === true &&
                 prompt === (0, utils_1.content2prompt)(value.prompt)) {
                 return value;
             }
         }
-        for (const [key, value] of this.waitMjEvents.entries()) {
+        for (const [, value] of this.waitMjEvents.entries()) {
             if (prompt === (0, utils_1.content2prompt)(value.prompt)) {
                 return value;
             }
         }
+        return undefined;
     }
     getEventById(id) {
-        for (const [key, value] of this.waitMjEvents.entries()) {
+        for (const [, value] of this.waitMjEvents.entries()) {
             if (value.id === id) {
                 return value;
             }
         }
+        return undefined;
     }
     getEventByNonce(nonce) {
-        for (const [key, value] of this.waitMjEvents.entries()) {
+        for (const [, value] of this.waitMjEvents.entries()) {
             if (value.nonce === nonce) {
                 return value;
             }
         }
+        return undefined;
     }
     updateMjEventIdByNonce(id, nonce) {
         if (nonce === "" || id === "")

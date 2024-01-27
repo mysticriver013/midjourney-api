@@ -252,7 +252,7 @@ class MidjourneyApi extends command_1.Command {
      * prepare an attachement to upload an image.
      */
     async attachments(...files) {
-        const { SalaiToken, DiscordBaseUrl, ChannelId, fetch } = this.config;
+        const { SalaiToken, DiscordBaseUrl, ChannelId } = this.config;
         const headers = {
             Authorization: SalaiToken,
             "content-type": "application/json",

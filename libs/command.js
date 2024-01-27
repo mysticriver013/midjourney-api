@@ -25,6 +25,7 @@ function getCommandName(name) {
             return command;
         }
     }
+    return undefined;
 }
 class Command {
     config;

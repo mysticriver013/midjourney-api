@@ -587,6 +587,8 @@ function get_type(type, component, serializer, signature_type) {
             return "boolean";
         case "number":
             return "number";
+        default:
+            return "string";
     }
     if (serializer === "JSONSerializable" ||
         serializer === "StringSerializable") {
@@ -711,7 +713,7 @@ async function walk_and_store_blobs(param, type = undefined, path = [], root = f
         return [
             {
                 path: path,
-                blob: is_image ? false : new exports.NodeBlob([param]),
+                blob: is_image ? false : new Blob([param]),
                 data: is_image ? `${param.toString("base64")}` : false,
                 type,
             },

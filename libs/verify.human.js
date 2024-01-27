@@ -28,6 +28,7 @@ class VerifyHuman {
                 }
             }
         }
+        return undefined;
     }
 }
 exports.VerifyHuman = VerifyHuman;
