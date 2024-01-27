@@ -386,7 +386,7 @@ export class MidjourneyApi extends Command {
   private async attachments(
     ...files: UploadParam[]
   ): Promise<{ attachments: UploadSlot[] }> {
-    const { SalaiToken, DiscordBaseUrl, ChannelId, fetch } = this.config;
+    const { SalaiToken, DiscordBaseUrl, ChannelId } = this.config;
     const headers = {
       Authorization: SalaiToken,
       "content-type": "application/json",

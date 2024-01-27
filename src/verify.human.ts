@@ -26,5 +26,6 @@ export class VerifyHuman {
         }
       }
     }
+    return undefined;
   }
 }
