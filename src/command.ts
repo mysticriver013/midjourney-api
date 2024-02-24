@@ -50,7 +50,7 @@ export class Command {
   }
   async allCommand() {
     // `936929561302675456` is the MidJourney bot ApplicationID
-    const url = `${this.config.DiscordBaseUrl}/api/v9/applications/936929561302675456/commands` // new commands
+    const url = `${this.config.DiscordBaseUrl}/api/v10/applications/936929561302675456/commands` // new commands
     const response = await this.config.fetch(url, {
       headers: { authorization: this.config.SalaiToken },
     });
