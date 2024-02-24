@@ -41,7 +41,7 @@ export class Command {
     if (this.cache[name] !== undefined) {
       return this.cache[name];
     }
-    this.allCommand();
+    await this.allCommand();
     const command =  this.cache[name];
     if (!command) {
       throw new Error(`Failed to get application_commands for command: ${name}`);
