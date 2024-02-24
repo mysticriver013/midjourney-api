@@ -143,7 +143,7 @@ export class MidjourneyMessage {
         return msg;
       }
       this.log(i, "wait no message found - 3");
-      await sleep(1000 * 3); // attn: change to 3 second interval
+      await sleep(1000 * 4); // attn: change to 4 second interval
     }
     return null;
   }

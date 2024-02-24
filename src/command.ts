@@ -29,6 +29,11 @@ function getCommandName(name: string): CommandName | undefined {
 }
 
 export class Command {
+  version: string = "";
+  id: string = "";
+  type: number = 1;
+  name: string = "";
+
   constructor(public config: MJConfig) {}
   cache: Partial<Record<CommandName, Command>> = {};
 
@@ -36,29 +41,25 @@ export class Command {
     if (this.cache[name] !== undefined) {
       return this.cache[name];
     }
-    if (this.config.ServerId) {
-      const command = await this.getCommand(name);
-      this.cache[name] = command;
-      return command;
-    }
     this.allCommand();
-    return this.cache[name];
+    const command =  this.cache[name];
+    if (!command) {
+      throw new Error(`Failed to get application_commands for command: ${name}`);
+    }
+    return command;
   }
   async allCommand() {
-    const searchParams = new URLSearchParams({
-      type: "1",
-      include_applications: "true",
-    });
-    const url = `${this.config.DiscordBaseUrl}/api/v9/channels/${this.config.ChannelId}/application-commands/search?${searchParams}`;
-
+    // `936929561302675456` is the MidJourney bot ApplicationID
+    const url = `${this.config.DiscordBaseUrl}/api/v9/applications/936929561302675456/commands` // new commands
     const response = await this.config.fetch(url, {
       headers: { authorization: this.config.SalaiToken },
     });
 
     const data = await response.json();
-    if (data?.application_commands) {
-      data.application_commands.forEach((command: any) => {
-        const name = getCommandName(command.name);
+    if (data) {
+      data.forEach((command: any) => {
+        // const name = getCommandName(command.name);
+        const name = command["name"] as CommandName;
         if (name) {
           this.cache[name] = command;
         }
@@ -66,6 +67,7 @@ export class Command {
     }
   }
 
+  // ATTN: not used
   async getCommand(name: CommandName) {
     const searchParams = new URLSearchParams({
       type: "1",
@@ -159,10 +161,10 @@ export class Command {
   ) {
     const command = await this.cacheCommand(name);
     const data = {
-      version: command.version,
-      id: command.id,
-      name: command.name,
-      type: command.type,
+      version: command?.version,
+      id: command?.id,
+      name: command?.name,
+      type: command?.type,
       options,
       application_command: command,
       attachments,
